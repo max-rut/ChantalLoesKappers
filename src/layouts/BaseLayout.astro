@@ -49,6 +49,18 @@ const resolvedOgImage = ogImage ? new URL(ogImage, Astro.site).toString() : unde
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </head>
   <body>
     <a href="#main" class="skip-link">Direct naar inhoud</a>
