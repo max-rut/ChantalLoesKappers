@@ -1,0 +1,95 @@
+---
+import type { Product } from '../data/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const initials = product.name
+  .split(/\s+/)
+  .map((w) => w[0])
+  .filter(Boolean)
+  .slice(0, 2)
+  .join('')
+  .toUpperCase();
+---
+
+<article class="product">
+  {
+    product.image ? (
+      <img src={product.image} alt={product.name} loading="lazy" />
+    ) : (
+      <div class="placeholder" aria-hidden="true">
+        <span class="initials">{initials}</span>
+        <span class="hint">afbeelding volgt</span>
+      </div>
+    )
+  }
+  <h3>{product.name}</h3>
+  {product.blurb && <p>{product.blurb}</p>}
+</article>
+
+<style>
+  .product {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .product:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .product img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .placeholder {
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(135deg, var(--color-bg-alt), var(--color-border));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
+  }
+
+  .initials {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--color-accent-dark);
+    letter-spacing: 0.04em;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  .product h3 {
+    margin: 0;
+    padding: var(--space-sm) var(--space-sm) 0.25rem;
+    font-size: 1.15rem;
+  }
+
+  .product p {
+    margin: 0;
+    padding: 0 var(--space-sm) var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .product h3:last-child {
+    padding-bottom: var(--space-sm);
+  }
+</style>

@@ -1,0 +1,287 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OpeningHours from '../components/OpeningHours.astro';
+import BookButton from '../components/BookButton.astro';
+import { address, phones, email, salonName } from '../data/contact';
+
+// Vervang dit door je eigen Formspree-endpoint zodra je een account hebt:
+// https://formspree.io/forms/<your-form-id>
+const formspreeEndpoint = 'https://formspree.io/f/YOUR_FORM_ID';
+
+const mapsQuery = encodeURIComponent(`${address.street}, ${address.postalCode} ${address.city}`);
+const mapsEmbedSrc = `https://www.google.com/maps?q=${mapsQuery}&hl=nl&z=16&output=embed`;
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+---
+
+<BaseLayout
+  title="Contact"
+  description="Bezoek of bel Chantal & Loes Kappers in Heiloo. Adres, openingstijden en contactformulier."
+>
+  <section class="page-header">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+      <h1>Even contact opnemen?</h1>
+      <p class="lead">
+        Heb je een vraag, wil je advies of liever direct een afspraak maken?
+        Hieronder vind je alle manieren om ons te bereiken.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <h2>{salonName}</h2>
+        <address>
+          {address.street}<br />
+          {address.postalCode} {address.city}
+        </address>
+
+        <ul class="contact-list">
+          {
+            phones.map((p) => (
+              <li>
+                <span class="muted">{p.label}</span>
+                <a href={`tel:${p.tel}`}>{p.number}</a>
+              </li>
+            ))
+          }
+          <li>
+            <span class="muted">E-mail</span>
+            <a href={`mailto:${email}`}>{email}</a>
+          </li>
+        </ul>
+
+        <h3>Openingstijden</h3>
+        <OpeningHours compact={true} showNote={false} />
+
+        <div class="cta">
+          <BookButton />
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <h2>Stuur ons een bericht</h2>
+        <p class="muted">
+          We beantwoorden je bericht zo snel mogelijk, doorgaans binnen één werkdag.
+        </p>
+
+        <form action={formspreeEndpoint} method="POST" class="contact-form">
+          <label>
+            <span>Naam</span>
+            <input type="text" name="naam" required autocomplete="name" />
+          </label>
+
+          <label>
+            <span>E-mailadres</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+
+          <label>
+            <span>Telefoon <em>(optioneel)</em></span>
+            <input type="tel" name="telefoon" autocomplete="tel" />
+          </label>
+
+          <label>
+            <span>Onderwerp</span>
+            <input type="text" name="onderwerp" required />
+          </label>
+
+          <label>
+            <span>Bericht</span>
+            <textarea name="bericht" rows="5" required></textarea>
+          </label>
+
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="honeypot" />
+
+          <button type="submit" class="btn">Verstuur bericht</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <div class="map-wrap">
+      <iframe
+        title="Locatie Chantal & Loes Kappers op Google Maps"
+        src={mapsEmbedSrc}
+        width="100%"
+        height="100%"
+        style="border:0"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
+    <div class="container map-link">
+      <a href={mapsLink} target="_blank" rel="noopener">
+        Open in Google Maps
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M7 17L17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-lg) 0 var(--space-md);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    max-width: 60ch;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .contact-info address {
+    font-style: normal;
+    margin: 0 0 var(--space-md);
+  }
+
+  .contact-list {
+    list-style: none;
+    margin: 0 0 var(--space-md);
+    padding: 0;
+  }
+
+  .contact-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .contact-list li:last-child {
+    border-bottom: 0;
+  }
+
+  .contact-info h3 {
+    margin-top: var(--space-md);
+  }
+
+  .cta {
+    margin-top: var(--space-md);
+  }
+
+  .muted {
+    color: var(--color-text-muted);
+  }
+
+  .contact-form-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .contact-form-card h2 {
+    margin-top: 0;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  .contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-form label span {
+    color: var(--color-text);
+  }
+
+  .contact-form em {
+    font-style: normal;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--color-text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(163, 119, 106, 0.15);
+  }
+
+  .contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .contact-form button {
+    justify-self: start;
+    margin-top: var(--space-xs);
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  .map-section {
+    margin-top: var(--space-lg);
+  }
+
+  .map-wrap {
+    aspect-ratio: 16 / 7;
+    width: 100%;
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .map-link {
+    text-align: right;
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+  }
+
+  .map-link a {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .map-wrap {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

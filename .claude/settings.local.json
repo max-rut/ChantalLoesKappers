@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:chantalloeskappers.nl)",
+      "Bash(npm --version)",
+      "Bash(npm create *)"
+    ]
+  }
+}

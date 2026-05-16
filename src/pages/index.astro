@@ -1,0 +1,355 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MededelingBanner from '../components/MededelingBanner.astro';
+import BookButton from '../components/BookButton.astro';
+import OpeningHours from '../components/OpeningHours.astro';
+import { services } from '../data/services';
+
+const serviceTeasers = services.map((s) => ({
+  slug: s.slug,
+  title: s.title,
+  description: s.intro ?? 'Bekijk de prijslijst en mogelijkheden.',
+}));
+---
+
+<BaseLayout
+  title="Chantal & Loes Kappers — kapsalon in Heiloo"
+  description="Persoonlijke kapsalon in Heiloo voor dames, heren en kinderen. Specialist in knippen, kleuren en permanenten met Goldwell-producten."
+>
+  <MededelingBanner />
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow">Kapsalon Heiloo · sinds 2014</span>
+        <h1>Vakmanschap met een persoonlijke touch.</h1>
+        <p class="lead">
+          Bij Chantal &amp; Loes draait alles om een ontspannen sfeer en een resultaat
+          waar je je goed bij voelt. Laagdrempelig, eerlijk advies en altijd met
+          professionele Goldwell-producten.
+        </p>
+        <div class="hero-ctas">
+          <BookButton size="lg" />
+          <a href={`${import.meta.env.BASE_URL}diensten`} class="btn btn-outline">
+            Bekijk onze diensten
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-placeholder">
+          <span class="placeholder-label">Salonfoto</span>
+          <span class="placeholder-sub">hi-res afbeelding volgt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container about-grid">
+      <div>
+        <span class="eyebrow">Over ons</span>
+        <h2>Twee kapsters, één salon, jarenlange ervaring.</h2>
+        <p>
+          Na beiden jarenlang ervaring opgedaan te hebben bij verschillende
+          kapsalons hebben we ons kunnen ontwikkelen tot allround kapsters. In
+          2014 zijn we samen gestart met Chantal &amp; Loes Kappers — een
+          plek waar iedereen zich welkom voelt en waar kwaliteit vanzelfsprekend is.
+        </p>
+        <p>
+          We werken uitsluitend op afspraak. Zo krijgt iedereen rustig de tijd
+          en aandacht die hij of zij verdient.
+        </p>
+      </div>
+      <ul class="people">
+        <li>
+          <div class="person-placeholder" aria-hidden="true">L</div>
+          <div>
+            <h3>Loes</h3>
+            <p class="muted">30+ jaar ervaring</p>
+          </div>
+        </li>
+        <li>
+          <div class="person-placeholder" aria-hidden="true">C</div>
+          <div>
+            <h3>Chantal</h3>
+            <p class="muted">17+ jaar ervaring</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section services-preview">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Onze diensten</span>
+        <h2>Wat we voor je kunnen betekenen</h2>
+      </div>
+      <div class="services-grid">
+        {
+          serviceTeasers.map((s) => (
+            <a href={`${import.meta.env.BASE_URL}diensten#${s.slug}`} class="service-tile">
+              <div class="service-placeholder" aria-hidden="true">
+                <span>{s.title.charAt(0)}</span>
+              </div>
+              <div class="service-tile-body">
+                <h3>{s.title}</h3>
+                <p>{s.description}</p>
+                <span class="link-arrow">
+                  Naar prijzen
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section hours-section">
+    <div class="container hours-grid">
+      <div>
+        <span class="eyebrow">Openingstijden</span>
+        <h2>Wanneer ben je welkom?</h2>
+        <p>
+          We werken volledig op afspraak. Maak online een afspraak op het moment
+          dat jou het beste uitkomt.
+        </p>
+        <BookButton />
+      </div>
+      <div class="hours-card">
+        <OpeningHours />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: var(--space-xl) 0 var(--space-lg);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .hero-text .lead {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+    max-width: 50ch;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .hero-placeholder {
+    aspect-ratio: 4 / 5;
+    background: linear-gradient(135deg, var(--color-bg-alt), var(--color-border));
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
+    box-shadow: var(--shadow-md);
+  }
+
+  .placeholder-label {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--color-accent-dark);
+  }
+
+  .placeholder-sub {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .people {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .people li {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  .person-placeholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    flex-shrink: 0;
+  }
+
+  .people h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .people p {
+    margin: 0;
+  }
+
+  .muted {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .services-preview {
+    background: var(--color-bg-alt);
+  }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .service-tile {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    color: var(--color-text);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text);
+  }
+
+  .service-placeholder {
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, var(--color-bg-alt), var(--color-border));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-dark);
+    font-family: var(--font-heading);
+    font-size: 4rem;
+  }
+
+  .service-tile-body {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .service-tile-body h3 {
+    margin: 0;
+  }
+
+  .service-tile-body p {
+    margin: 0;
+    color: var(--color-text-muted);
+    flex: 1;
+  }
+
+  .link-arrow {
+    margin-top: var(--space-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-accent-dark);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .service-tile:hover .link-arrow svg {
+    transform: translateX(3px);
+  }
+
+  .link-arrow svg {
+    transition: transform 0.15s ease;
+  }
+
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .hours-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .about-grid,
+    .hours-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-placeholder {
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+</style>

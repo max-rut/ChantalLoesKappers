@@ -1,0 +1,110 @@
+---
+import type { ServiceCategory } from '../data/services';
+
+interface Props {
+  category: ServiceCategory;
+}
+
+const { category } = Astro.props;
+---
+
+<article class="service-card" id={category.slug}>
+  <header>
+    <h3>{category.title}</h3>
+    {category.intro && <p class="intro">{category.intro}</p>}
+  </header>
+
+  <ul class="rows">
+    {
+      category.items.map((item) => (
+        <li>
+          <span class="name">{item.name}</span>
+          <span class="price">
+            {item.fromPrice && <span class="from">vanaf</span>}
+            {item.price}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    category.notes && category.notes.length > 0 && (
+      <footer class="notes">
+        {category.notes.map((n) => (
+          <p>{n}</p>
+        ))}
+      </footer>
+    )
+  }
+</article>
+
+<style>
+  .service-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .service-card h3 {
+    margin: 0 0 0.25rem;
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin: 0 0 var(--space-sm);
+  }
+
+  .rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .rows li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    padding: 0.75rem 0;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .rows li:last-child {
+    border-bottom: 0;
+  }
+
+  .name {
+    flex: 1;
+  }
+
+  .price {
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .from {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    font-weight: 400;
+    margin-right: 0.4rem;
+  }
+
+  .notes {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .notes p {
+    margin: 0;
+  }
+</style>
