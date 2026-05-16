@@ -2,34 +2,28 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import BookButton from '../components/BookButton.astro';
-import { products, productIntro } from '../data/products';
+import producten from '../data/producten.json';
+import productenLijst from '../data/producten-lijst.json';
 ---
 
-<BaseLayout
-  title="Producten"
-  description="Wij werken uitsluitend met professionele Goldwell-producten — van shampoo en conditioner tot kleuring en styling."
->
+<BaseLayout title={producten.meta.titel} description={producten.meta.beschrijving}>
   <section class="page-header">
     <div class="container">
-      <span class="eyebrow">Onze producten</span>
-      <h1>Goldwell, en niets minder.</h1>
-      <p class="lead">{productIntro}</p>
+      <span class="eyebrow">{producten.header.eyebrow}</span>
+      <h1>{producten.header.titel}</h1>
+      <p class="lead">{producten.header.lead}</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="products-grid">
-        {products.map((p) => <ProductCard product={p} />)}
+        {productenLijst.producten.map((p) => <ProductCard product={p} />)}
       </div>
 
       <div class="info-box">
-        <h2>Advies op maat</h2>
-        <p>
-          Niet zeker welk product bij jouw haar past? Tijdens je afspraak
-          adviseren we je graag persoonlijk over wat het beste werkt voor jouw
-          haartype.
-        </p>
+        <h2>{producten.infoBox.titel}</h2>
+        <p>{producten.infoBox.tekst}</p>
         <BookButton />
       </div>
     </div>

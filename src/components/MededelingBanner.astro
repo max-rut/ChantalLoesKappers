@@ -1,9 +1,9 @@
 ---
-import { mededeling } from '../data/mededeling';
+import mededeling from '../data/mededeling.json';
 ---
 
 {
-  mededeling.visible && (
+  mededeling.zichtbaar && (
     <aside class="banner" role="note" aria-label="Mededeling">
       <div class="container banner-inner">
         <svg
@@ -23,8 +23,8 @@ import { mededeling } from '../data/mededeling';
           <line x1="12" y1="16" x2="12.01" y2="16" />
         </svg>
         <div>
-          {mededeling.title && <strong>{mededeling.title}</strong>}
-          <span class="body">{mededeling.body}</span>
+          {mededeling.titel && <strong>{mededeling.titel}</strong>}
+          <span class="body">{mededeling.tekst}</span>
         </div>
       </div>
     </aside>

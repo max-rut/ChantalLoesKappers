@@ -1,0 +1,21 @@
+{
+  "producten": [
+    { "naam": "Blondes & Highlights", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Color", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Color Extra Rich", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Colorance", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Curly Twist", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Elixir", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Golden Spray", "beschrijving": "", "afbeelding": "" },
+    { "naam": "StyleSign", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Hair & Body Shampoo", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Just Smooth", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Reshade", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Rich Repair", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Scalp Specialist", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Silver", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Topchic", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Topchic Zero", "beschrijving": "", "afbeelding": "" },
+    { "naam": "Ultra Volume", "beschrijving": "", "afbeelding": "" }
+  ]
+}

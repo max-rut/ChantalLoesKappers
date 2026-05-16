@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "titel": "Chantal & Loes Kappers — kapsalon in Heiloo",
+    "beschrijving": "Persoonlijke kapsalon in Heiloo voor dames, heren en kinderen. Specialist in knippen, kleuren en permanenten met Goldwell-producten."
+  },
+  "hero": {
+    "eyebrow": "Kapsalon Heiloo · sinds 2014",
+    "titel": "Vakmanschap met een persoonlijke touch.",
+    "lead": "Bij Chantal & Loes draait alles om een ontspannen sfeer en een resultaat waar je je goed bij voelt. Laagdrempelig, eerlijk advies en altijd met professionele Goldwell-producten.",
+    "tweedeKnopLabel": "Bekijk onze diensten",
+    "afbeelding": ""
+  },
+  "overOns": {
+    "eyebrow": "Over ons",
+    "titel": "Twee kapsters, één salon, jarenlange ervaring.",
+    "personen": [
+      { "naam": "Loes", "ondertitel": "30+ jaar ervaring", "foto": "" },
+      { "naam": "Chantal", "ondertitel": "17+ jaar ervaring", "foto": "" }
+    ]
+  },
+  "dienstenPreview": {
+    "eyebrow": "Onze diensten",
+    "titel": "Wat we voor je kunnen betekenen"
+  },
+  "openingstijdenSectie": {
+    "eyebrow": "Openingstijden",
+    "titel": "Wanneer ben je welkom?",
+    "tekst": "We werken volledig op afspraak. Maak online een afspraak op het moment dat jou het beste uitkomt."
+  }
+}

@@ -3,7 +3,9 @@
     "allow": [
       "WebFetch(domain:chantalloeskappers.nl)",
       "Bash(npm --version)",
-      "Bash(npm create *)"
+      "Bash(npm create *)",
+      "Bash(npx astro *)",
+      "Bash(npm run *)"
     ]
   }
 }

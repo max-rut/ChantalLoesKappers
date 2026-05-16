@@ -1,6 +1,7 @@
 ---
-import { salonName, address, phones, email, bookingUrl, socials } from '../data/contact';
-import { openingHours } from '../data/hours';
+import site from '../data/site.json';
+import contact from '../data/contact.json';
+import hours from '../data/hours.json';
 
 const year = new Date().getFullYear();
 ---
@@ -8,34 +9,34 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-col">
-      <h3 class="footer-heading">{salonName}</h3>
+      <h3 class="footer-heading">{site.salonNaam}</h3>
       <address>
-        {address.street}<br />
-        {address.postalCode} {address.city}
+        {contact.adres.straat}<br />
+        {contact.adres.postcode} {contact.adres.plaats}
       </address>
       <ul class="footer-contact">
         {
-          phones.map((p) => (
+          contact.telefoons.map((p) => (
             <li>
               <span class="muted">{p.label}</span>{' '}
-              <a href={`tel:${p.tel}`}>{p.number}</a>
+              <a href={`tel:${p.tel}`}>{p.weergave}</a>
             </li>
           ))
         }
         <li>
-          <a href={`mailto:${email}`}>{email}</a>
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
         </li>
       </ul>
     </div>
 
     <div class="footer-col">
-      <h3 class="footer-heading">Openingstijden</h3>
+      <h3 class="footer-heading">{site.footer.openingstijdenTitel}</h3>
       <ul class="footer-hours">
         {
-          openingHours.map((h) => (
-            <li class={h.closed ? 'closed' : ''}>
-              <span>{h.day}</span>
-              <span>{h.hours}</span>
+          hours.dagen.map((h) => (
+            <li class={h.gesloten ? 'closed' : ''}>
+              <span>{h.dag}</span>
+              <span>{h.tijden}</span>
             </li>
           ))
         }
@@ -43,16 +44,16 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-col">
-      <h3 class="footer-heading">Afspraak</h3>
+      <h3 class="footer-heading">{site.footer.afspraakTitel}</h3>
       <p class="muted">
-        Maak eenvoudig online een afspraak via ons afsprakensysteem.
+        {site.footer.afspraakTekst}
       </p>
-      <a href={bookingUrl} class="btn" target="_blank" rel="noopener">Afspraak maken</a>
+      <a href={site.boekingUrl} class="btn" target="_blank" rel="noopener">{site.boekKnopLabel}</a>
 
       {
-        socials.length > 0 && (
+        contact.socials.length > 0 && (
           <ul class="footer-socials">
-            {socials.map((s) => (
+            {contact.socials.map((s) => (
               <li>
                 <a href={s.href} target="_blank" rel="noopener">
                   {s.label}
@@ -66,7 +67,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="container footer-bottom">
-    <p>&copy; {year} {salonName}. Alle rechten voorbehouden.</p>
+    <p>&copy; {year} {site.salonNaam}. {site.footer.copyrightZin}</p>
   </div>
 </footer>
 

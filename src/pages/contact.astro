@@ -2,53 +2,49 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import OpeningHours from '../components/OpeningHours.astro';
 import BookButton from '../components/BookButton.astro';
-import { address, phones, email, salonName } from '../data/contact';
+import site from '../data/site.json';
+import contact from '../data/contact.json';
+import contactPage from '../data/contact-page.json';
 
 // Vervang dit door je eigen Formspree-endpoint zodra je een account hebt:
 // https://formspree.io/forms/<your-form-id>
 const formspreeEndpoint = 'https://formspree.io/f/YOUR_FORM_ID';
 
-const mapsQuery = encodeURIComponent(`${address.street}, ${address.postalCode} ${address.city}`);
+const mapsQuery = encodeURIComponent(`${contact.adres.straat}, ${contact.adres.postcode} ${contact.adres.plaats}`);
 const mapsEmbedSrc = `https://www.google.com/maps?q=${mapsQuery}&hl=nl&z=16&output=embed`;
 const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 ---
 
-<BaseLayout
-  title="Contact"
-  description="Bezoek of bel Chantal & Loes Kappers in Heiloo. Adres, openingstijden en contactformulier."
->
+<BaseLayout title={contactPage.meta.titel} description={contactPage.meta.beschrijving}>
   <section class="page-header">
     <div class="container">
-      <span class="eyebrow">Contact</span>
-      <h1>Even contact opnemen?</h1>
-      <p class="lead">
-        Heb je een vraag, wil je advies of liever direct een afspraak maken?
-        Hieronder vind je alle manieren om ons te bereiken.
-      </p>
+      <span class="eyebrow">{contactPage.header.eyebrow}</span>
+      <h1>{contactPage.header.titel}</h1>
+      <p class="lead">{contactPage.header.lead}</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container contact-grid">
       <div class="contact-info">
-        <h2>{salonName}</h2>
+        <h2>{site.salonNaam}</h2>
         <address>
-          {address.street}<br />
-          {address.postalCode} {address.city}
+          {contact.adres.straat}<br />
+          {contact.adres.postcode} {contact.adres.plaats}
         </address>
 
         <ul class="contact-list">
           {
-            phones.map((p) => (
+            contact.telefoons.map((p) => (
               <li>
                 <span class="muted">{p.label}</span>
-                <a href={`tel:${p.tel}`}>{p.number}</a>
+                <a href={`tel:${p.tel}`}>{p.weergave}</a>
               </li>
             ))
           }
           <li>
             <span class="muted">E-mail</span>
-            <a href={`mailto:${email}`}>{email}</a>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
           </li>
         </ul>
 
@@ -61,10 +57,8 @@ const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
       </div>
 
       <div class="contact-form-card">
-        <h2>Stuur ons een bericht</h2>
-        <p class="muted">
-          We beantwoorden je bericht zo snel mogelijk, doorgaans binnen één werkdag.
-        </p>
+        <h2>{contactPage.formulier.titel}</h2>
+        <p class="muted">{contactPage.formulier.toelichting}</p>
 
         <form action={formspreeEndpoint} method="POST" class="contact-form">
           <label>

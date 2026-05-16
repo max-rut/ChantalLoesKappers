@@ -2,36 +2,31 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ServiceTable from '../components/ServiceTable.astro';
 import BookButton from '../components/BookButton.astro';
-import { services, priceDisclaimer } from '../data/services';
+import diensten from '../data/diensten.json';
+import dienstenServices from '../data/diensten-services.json';
 ---
 
-<BaseLayout
-  title="Diensten en prijzen"
-  description="Volledig overzicht van behandelingen en prijzen bij Chantal & Loes Kappers in Heiloo: knippen, kleuren en permanenten."
->
+<BaseLayout title={diensten.meta.titel} description={diensten.meta.beschrijving}>
   <section class="page-header">
     <div class="container">
-      <span class="eyebrow">Onze diensten</span>
-      <h1>Diensten en prijzen</h1>
-      <p class="lead">
-        Hieronder vind je een overzicht van onze behandelingen. Vragen of een
-        persoonlijk advies? Bel of mail ons gerust.
-      </p>
+      <span class="eyebrow">{diensten.header.eyebrow}</span>
+      <h1>{diensten.header.titel}</h1>
+      <p class="lead">{diensten.header.lead}</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="services-grid">
-        {services.map((cat) => <ServiceTable category={cat} />)}
+        {dienstenServices.categorieen.map((cat) => <ServiceTable categorie={cat} />)}
       </div>
 
-      <p class="disclaimer">{priceDisclaimer}</p>
+      <p class="disclaimer">{dienstenServices.prijsDisclaimer}</p>
 
       <div class="cta-row">
         <BookButton size="lg" />
         <a href={`${import.meta.env.BASE_URL}contact`} class="btn btn-outline">
-          Neem contact op
+          {diensten.tweedeKnopLabel}
         </a>
       </div>
     </div>

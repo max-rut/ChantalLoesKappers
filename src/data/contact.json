@@ -1,0 +1,14 @@
+{
+  "adres": {
+    "straat": "Heerenweg 252a",
+    "postcode": "1851 LB",
+    "plaats": "Heiloo",
+    "land": "Nederland"
+  },
+  "telefoons": [
+    { "label": "Salon", "weergave": "072-5315991", "tel": "+31725315991" },
+    { "label": "Mobiel", "weergave": "06 38469682", "tel": "+31638469682" }
+  ],
+  "email": "info@chantalloeskappers.nl",
+  "socials": []
+}

@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import site from '../data/site.json';
 import '../styles/global.css';
 
 interface Props {
@@ -11,11 +12,11 @@ interface Props {
 
 const {
   title,
-  description = 'Chantal & Loes Kappers in Heiloo — kapsalon voor dames, heren en kinderen. Persoonlijk, vakkundig en met topproducten van Goldwell.',
+  description = site.standaardBeschrijving,
   ogImage,
 } = Astro.props;
 
-const fullTitle = title.includes('Chantal') ? title : `${title} — Chantal & Loes Kappers`;
+const fullTitle = title.includes(site.salonNaam) ? title : `${title} — ${site.salonNaam}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 const resolvedOgImage = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 ---

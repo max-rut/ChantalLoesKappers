@@ -1,0 +1,47 @@
+{
+  "categorieen": [
+    {
+      "slug": "knippen",
+      "titel": "Knippen",
+      "intro": "",
+      "items": [
+        { "naam": "Knippen", "prijs": "€31,00", "vanafPrijs": false },
+        { "naam": "Wassen, knippen", "prijs": "€36,00", "vanafPrijs": false },
+        { "naam": "Wassen, knippen, modeldrogen", "prijs": "€41,00", "vanafPrijs": false },
+        { "naam": "Wassen, knippen, föhnen / watergolf", "prijs": "€56,50", "vanafPrijs": false },
+        { "naam": "Knippen t/m 12 jaar", "prijs": "€24,00", "vanafPrijs": false },
+        { "naam": "Knippen t/m 15 jaar", "prijs": "€26,50", "vanafPrijs": false },
+        { "naam": "Wassen, föhnen / watergolf", "prijs": "€33,00", "vanafPrijs": false }
+      ],
+      "notities": [
+        "Het haar dient dezelfde dag gewassen en zonder stylingproducten te zijn."
+      ]
+    },
+    {
+      "slug": "kleuren",
+      "titel": "Kleuren",
+      "intro": "Inclusief wassen.",
+      "items": [
+        { "naam": "Topchic — permanente kleuring", "prijs": "€46,00", "vanafPrijs": true },
+        { "naam": "Topchic Zero — permanente kleuring zonder ammonia", "prijs": "€48,00", "vanafPrijs": true },
+        { "naam": "Colorance — spoeling", "prijs": "€41,00", "vanafPrijs": false },
+        { "naam": "Highlights (kam)", "prijs": "€42,00", "vanafPrijs": true },
+        { "naam": "Highlights / lowlights (folies)", "prijs": "€78,00", "vanafPrijs": true }
+      ],
+      "notities": [
+        "Voor highlights / lowlights graag telefonisch contact opnemen via 072 - 531 59 91."
+      ]
+    },
+    {
+      "slug": "permanenten",
+      "titel": "Permanenten",
+      "intro": "Inclusief wassen, knippen, föhnen / watergolf.",
+      "items": [
+        { "naam": "Permanent — deel", "prijs": "€97,50", "vanafPrijs": true },
+        { "naam": "Permanent — heel", "prijs": "€112,50", "vanafPrijs": true }
+      ],
+      "notities": []
+    }
+  ],
+  "prijsDisclaimer": "Alle prijzen zijn inclusief 9% btw, geldig vanaf 1 januari 2026. Prijswijzigingen en typefouten voorbehouden."
+}

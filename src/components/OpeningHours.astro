@@ -1,5 +1,5 @@
 ---
-import { openingHours, hoursNote } from '../data/hours';
+import hours from '../data/hours.json';
 
 interface Props {
   showNote?: boolean;
@@ -12,15 +12,15 @@ const { showNote = true, compact = false } = Astro.props;
 <div class={`hours ${compact ? 'compact' : ''}`}>
   <ul>
     {
-      openingHours.map((h) => (
-        <li class={h.closed ? 'closed' : ''}>
-          <span class="day">{h.day}</span>
-          <span class="time">{h.hours}</span>
+      hours.dagen.map((h) => (
+        <li class={h.gesloten ? 'closed' : ''}>
+          <span class="day">{h.dag}</span>
+          <span class="time">{h.tijden}</span>
         </li>
       ))
     }
   </ul>
-  {showNote && hoursNote && <p class="note">{hoursNote}</p>}
+  {showNote && hours.notitie && <p class="note">{hours.notitie}</p>}
 </div>
 
 <style>

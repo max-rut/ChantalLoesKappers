@@ -8,12 +8,256 @@ public_folder: "/images/uploads"
 locale: "nl"
 
 collections:
-  - name: "test"
-    label: "Test"
+  - name: "site"
+    label: "Algemene instellingen"
     files:
-      - file: "src/data/test.json"
-        label: "Test pagina"
-        name: "test"
+      - file: "src/data/site.json"
+        label: "Algemene instellingen"
+        name: "site"
         fields:
-          - { label: "Titel", name: "titel", widget: "string" }
-          - { label: "Beschrijving", name: "beschrijving", widget: "text" }
+          - { label: "Salonnaam", name: "salonNaam", widget: "string", hint: "Wordt in titels, footer en op contactpagina gebruikt." }
+          - { label: "Boekingssysteem-URL", name: "boekingUrl", widget: "string", hint: "Volledige link naar planetzelf.com (begint met https://)." }
+          - { label: "Knoplabel voor afspraak-knop", name: "boekKnopLabel", widget: "string" }
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - { label: "Titel boven openingstijden-kolom", name: "openingstijdenTitel", widget: "string" }
+              - { label: "Titel boven afspraak-kolom", name: "afspraakTitel", widget: "string" }
+              - { label: "Tekst in afspraak-kolom", name: "afspraakTekst", widget: "text" }
+              - { label: "Copyright-zin", name: "copyrightZin", widget: "string", hint: "Verschijnt achter het jaartal + salonnaam onderaan." }
+          - { label: "Standaard SEO-beschrijving (fallback)", name: "standaardBeschrijving", widget: "text" }
+  - name: "contact"
+    label: "Contactgegevens"
+    files:
+      - file: "src/data/contact.json"
+        label: "Contactgegevens"
+        name: "contact"
+        fields:
+          - label: "Adres"
+            name: "adres"
+            widget: "object"
+            fields:
+              - { label: "Straat + huisnummer", name: "straat", widget: "string" }
+              - { label: "Postcode", name: "postcode", widget: "string" }
+              - { label: "Plaats", name: "plaats", widget: "string" }
+              - { label: "Land", name: "land", widget: "string" }
+          - label: "Telefoonnummers"
+            name: "telefoons"
+            widget: "list"
+            min: 1
+            max: 2
+            summary: "{{fields.label}} — {{fields.weergave}}"
+            fields:
+              - { label: "Soort (bijv. Salon of Mobiel)", name: "label", widget: "string" }
+              - { label: "Weergave (zoals te zien op de site)", name: "weergave", widget: "string" }
+              - { label: "Klik-om-te-bellen-nummer", name: "tel", widget: "string", hint: "Begint met +31 en geen spaties, bijv. +31725315991" }
+          - { label: "E-mailadres", name: "email", widget: "string" }
+          - label: "Social media (optioneel)"
+            name: "socials"
+            widget: "list"
+            required: false
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Label (bijv. Instagram)", name: "label", widget: "string" }
+              - { label: "Link", name: "href", widget: "string" }
+  - name: "openingstijden"
+    label: "Openingstijden"
+    files:
+      - file: "src/data/hours.json"
+        label: "Openingstijden"
+        name: "openingstijden"
+        fields:
+          - label: "Dagen van de week"
+            name: "dagen"
+            widget: "list"
+            min: 7
+            max: 7
+            allow_add: false
+            summary: "{{fields.dag}} — {{fields.tijden}}"
+            fields:
+              - { label: "Dag", name: "dag", widget: "string" }
+              - { label: "Tijden (of 'Gesloten')", name: "tijden", widget: "string", hint: "Bijv. 08:30 – 17:30" }
+              - { label: "Deze dag gesloten?", name: "gesloten", widget: "boolean", default: false, hint: "Aanvinken als de salon deze dag dicht is." }
+          - { label: "Notitie onder openingstijden", name: "notitie", widget: "text", required: false }
+  - name: "mededeling"
+    label: "Mededeling-banner (homepage)"
+    files:
+      - file: "src/data/mededeling.json"
+        label: "Mededeling-banner"
+        name: "mededeling"
+        fields:
+          - { label: "Banner zichtbaar?", name: "zichtbaar", widget: "boolean", default: true, hint: "Uitvinken om de banner te verbergen." }
+          - { label: "Titel (optioneel)", name: "titel", widget: "string", required: false }
+          - { label: "Tekst van de mededeling", name: "tekst", widget: "text" }
+  - name: "home"
+    label: "Home pagina"
+    files:
+      - file: "src/data/home.json"
+        label: "Home — korte teksten en afbeeldingen"
+        name: "home"
+        fields:
+          - label: "SEO (zoekmachines)"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Paginatitel (browsertab + Google)", name: "titel", widget: "string" }
+              - { label: "Paginabeschrijving (Google)", name: "beschrijving", widget: "text" }
+          - label: "Hero (bovenste sectie)"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Klein label boven titel", name: "eyebrow", widget: "string" }
+              - { label: "Grote titel", name: "titel", widget: "string" }
+              - { label: "Introtekst onder titel", name: "lead", widget: "text" }
+              - { label: "Tweede knop-label (naar diensten)", name: "tweedeKnopLabel", widget: "string" }
+              - { label: "Hero-afbeelding (optioneel)", name: "afbeelding", widget: "image", required: false, hint: "Leeg laten = grijze placeholder tonen." }
+          - label: "Over ons-sectie"
+            name: "overOns"
+            widget: "object"
+            fields:
+              - { label: "Klein label boven titel", name: "eyebrow", widget: "string" }
+              - { label: "Titel", name: "titel", widget: "string" }
+              - label: "Personen"
+                name: "personen"
+                widget: "list"
+                min: 2
+                max: 2
+                allow_add: false
+                summary: "{{fields.naam}} — {{fields.ondertitel}}"
+                fields:
+                  - { label: "Naam", name: "naam", widget: "string" }
+                  - { label: "Ondertitel (bijv. '30+ jaar ervaring')", name: "ondertitel", widget: "string" }
+                  - { label: "Foto (optioneel)", name: "foto", widget: "image", required: false }
+          - label: "Diensten-preview-sectie"
+            name: "dienstenPreview"
+            widget: "object"
+            fields:
+              - { label: "Klein label boven titel", name: "eyebrow", widget: "string" }
+              - { label: "Titel", name: "titel", widget: "string" }
+          - label: "Openingstijden-sectie"
+            name: "openingstijdenSectie"
+            widget: "object"
+            fields:
+              - { label: "Klein label boven titel", name: "eyebrow", widget: "string" }
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Tekst", name: "tekst", widget: "text" }
+      - file: "src/data/home-over-ons.md"
+        label: "Home — 'Over ons' tekst (met opmaak)"
+        name: "homeOverOnsTekst"
+        fields:
+          - { label: "Tekst", name: "body", widget: "markdown" }
+  - name: "diensten"
+    label: "Diensten pagina"
+    files:
+      - file: "src/data/diensten.json"
+        label: "Diensten — pagina-teksten"
+        name: "diensten"
+        fields:
+          - label: "SEO (zoekmachines)"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Paginatitel", name: "titel", widget: "string" }
+              - { label: "Paginabeschrijving", name: "beschrijving", widget: "text" }
+          - label: "Page header"
+            name: "header"
+            widget: "object"
+            fields:
+              - { label: "Klein label boven titel", name: "eyebrow", widget: "string" }
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Introtekst", name: "lead", widget: "text" }
+          - { label: "Tweede knop-label (onderaan, naar contact)", name: "tweedeKnopLabel", widget: "string" }
+      - file: "src/data/diensten-services.json"
+        label: "Diensten — categorieën en prijzen"
+        name: "dienstenServices"
+        fields:
+          - label: "Categorieën"
+            name: "categorieen"
+            widget: "list"
+            min: 3
+            max: 3
+            allow_add: false
+            summary: "{{fields.titel}}"
+            fields:
+              - { label: "Slug (NIET wijzigen — interne ID)", name: "slug", widget: "string" }
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Intro (optioneel)", name: "intro", widget: "string", required: false }
+              - label: "Items / behandelingen"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.naam}} — {{fields.prijs}}"
+                fields:
+                  - { label: "Naam behandeling", name: "naam", widget: "string" }
+                  - { label: "Prijs (bijv. €31,00)", name: "prijs", widget: "string" }
+                  - { label: "'Vanaf'-prijs?", name: "vanafPrijs", widget: "boolean", default: false, hint: "Aanvinken als de prijs een richtbedrag is." }
+              - label: "Notities onder tabel (optioneel)"
+                name: "notities"
+                widget: "list"
+                required: false
+                field: { label: "Notitie", name: "notitie", widget: "string" }
+          - { label: "Prijs-disclaimer (onderaan pagina)", name: "prijsDisclaimer", widget: "text" }
+  - name: "producten"
+    label: "Producten pagina"
+    files:
+      - file: "src/data/producten.json"
+        label: "Producten — pagina-teksten"
+        name: "producten"
+        fields:
+          - label: "SEO (zoekmachines)"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Paginatitel", name: "titel", widget: "string" }
+              - { label: "Paginabeschrijving", name: "beschrijving", widget: "text" }
+          - label: "Page header"
+            name: "header"
+            widget: "object"
+            fields:
+              - { label: "Klein label boven titel", name: "eyebrow", widget: "string" }
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Introtekst", name: "lead", widget: "text" }
+          - label: "Info-box (onderaan)"
+            name: "infoBox"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Tekst", name: "tekst", widget: "text" }
+      - file: "src/data/producten-lijst.json"
+        label: "Producten — productenlijst"
+        name: "productenLijst"
+        fields:
+          - label: "Producten"
+            name: "producten"
+            widget: "list"
+            summary: "{{fields.naam}}"
+            fields:
+              - { label: "Naam", name: "naam", widget: "string" }
+              - { label: "Korte beschrijving (optioneel)", name: "beschrijving", widget: "string", required: false }
+              - { label: "Afbeelding (optioneel)", name: "afbeelding", widget: "image", required: false, hint: "Leeg laten = initialen-placeholder tonen." }
+  - name: "contactPagina"
+    label: "Contact pagina"
+    files:
+      - file: "src/data/contact-page.json"
+        label: "Contact — pagina-teksten"
+        name: "contactPagina"
+        fields:
+          - label: "SEO (zoekmachines)"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Paginatitel", name: "titel", widget: "string" }
+              - { label: "Paginabeschrijving", name: "beschrijving", widget: "text" }
+          - label: "Page header"
+            name: "header"
+            widget: "object"
+            fields:
+              - { label: "Klein label boven titel", name: "eyebrow", widget: "string" }
+              - { label: "Titel", name: "titel", widget: "string" }
+              - { label: "Introtekst", name: "lead", widget: "text" }
+          - label: "Formulier"
+            name: "formulier"
+            widget: "object"
+            fields:
+              - { label: "Titel boven formulier", name: "titel", widget: "string" }
+              - { label: "Toelichting onder titel", name: "toelichting", widget: "text" }

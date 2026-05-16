@@ -1,27 +1,39 @@
 ---
-import type { ServiceCategory } from '../data/services';
+type ServiceItem = {
+  naam: string;
+  prijs: string;
+  vanafPrijs?: boolean;
+};
+
+export type ServiceCategorie = {
+  slug: string;
+  titel: string;
+  intro?: string;
+  items: ServiceItem[];
+  notities?: string[];
+};
 
 interface Props {
-  category: ServiceCategory;
+  categorie: ServiceCategorie;
 }
 
-const { category } = Astro.props;
+const { categorie } = Astro.props;
 ---
 
-<article class="service-card" id={category.slug}>
+<article class="service-card" id={categorie.slug}>
   <header>
-    <h3>{category.title}</h3>
-    {category.intro && <p class="intro">{category.intro}</p>}
+    <h3>{categorie.titel}</h3>
+    {categorie.intro && <p class="intro">{categorie.intro}</p>}
   </header>
 
   <ul class="rows">
     {
-      category.items.map((item) => (
+      categorie.items.map((item) => (
         <li>
-          <span class="name">{item.name}</span>
+          <span class="name">{item.naam}</span>
           <span class="price">
-            {item.fromPrice && <span class="from">vanaf</span>}
-            {item.price}
+            {item.vanafPrijs && <span class="from">vanaf</span>}
+            {item.prijs}
           </span>
         </li>
       ))
@@ -29,9 +41,9 @@ const { category } = Astro.props;
   </ul>
 
   {
-    category.notes && category.notes.length > 0 && (
+    categorie.notities && categorie.notities.length > 0 && (
       <footer class="notes">
-        {category.notes.map((n) => (
+        {categorie.notities.map((n) => (
           <p>{n}</p>
         ))}
       </footer>

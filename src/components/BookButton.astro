@@ -1,5 +1,5 @@
 ---
-import { bookingUrl } from '../data/contact';
+import site from '../data/site.json';
 
 interface Props {
   label?: string;
@@ -7,13 +7,13 @@ interface Props {
   size?: 'md' | 'lg';
 }
 
-const { label = 'Afspraak maken', variant = 'solid', size = 'md' } = Astro.props;
+const { label = site.boekKnopLabel, variant = 'solid', size = 'md' } = Astro.props;
 const cls = ['btn', variant === 'outline' ? 'btn-outline' : '', size === 'lg' ? 'btn-lg' : '']
   .filter(Boolean)
   .join(' ');
 ---
 
-<a href={bookingUrl} class={cls} target="_blank" rel="noopener">
+<a href={site.boekingUrl} class={cls} target="_blank" rel="noopener">
   {label}
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
     <path d="M7 17L17 7" />

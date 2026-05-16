@@ -3,44 +3,45 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MededelingBanner from '../components/MededelingBanner.astro';
 import BookButton from '../components/BookButton.astro';
 import OpeningHours from '../components/OpeningHours.astro';
-import { services } from '../data/services';
+import home from '../data/home.json';
+import { Content as OverOnsTekst } from '../data/home-over-ons.md';
+import dienstenServices from '../data/diensten-services.json';
 
-const serviceTeasers = services.map((s) => ({
+const serviceTeasers = dienstenServices.categorieen.map((s) => ({
   slug: s.slug,
-  title: s.title,
-  description: s.intro ?? 'Bekijk de prijslijst en mogelijkheden.',
+  title: s.titel,
+  description: s.intro && s.intro.trim() !== '' ? s.intro : 'Bekijk de prijslijst en mogelijkheden.',
 }));
 ---
 
-<BaseLayout
-  title="Chantal & Loes Kappers — kapsalon in Heiloo"
-  description="Persoonlijke kapsalon in Heiloo voor dames, heren en kinderen. Specialist in knippen, kleuren en permanenten met Goldwell-producten."
->
+<BaseLayout title={home.meta.titel} description={home.meta.beschrijving}>
   <MededelingBanner />
 
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-text">
-        <span class="eyebrow">Kapsalon Heiloo · sinds 2014</span>
-        <h1>Vakmanschap met een persoonlijke touch.</h1>
-        <p class="lead">
-          Bij Chantal &amp; Loes draait alles om een ontspannen sfeer en een resultaat
-          waar je je goed bij voelt. Laagdrempelig, eerlijk advies en altijd met
-          professionele Goldwell-producten.
-        </p>
+        <span class="eyebrow">{home.hero.eyebrow}</span>
+        <h1>{home.hero.titel}</h1>
+        <p class="lead">{home.hero.lead}</p>
         <div class="hero-ctas">
           <BookButton size="lg" />
           <a href={`${import.meta.env.BASE_URL}diensten`} class="btn btn-outline">
-            Bekijk onze diensten
+            {home.hero.tweedeKnopLabel}
           </a>
         </div>
       </div>
 
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-placeholder">
-          <span class="placeholder-label">Salonfoto</span>
-          <span class="placeholder-sub">hi-res afbeelding volgt</span>
-        </div>
+      <div class="hero-visual" aria-hidden={home.hero.afbeelding ? undefined : 'true'}>
+        {
+          home.hero.afbeelding ? (
+            <img src={home.hero.afbeelding} alt="Salonfoto Chantal & Loes Kappers" class="hero-image" />
+          ) : (
+            <div class="hero-placeholder">
+              <span class="placeholder-label">Salonfoto</span>
+              <span class="placeholder-sub">hi-res afbeelding volgt</span>
+            </div>
+          )
+        }
       </div>
     </div>
   </section>
@@ -48,34 +49,28 @@ const serviceTeasers = services.map((s) => ({
   <section class="section about">
     <div class="container about-grid">
       <div>
-        <span class="eyebrow">Over ons</span>
-        <h2>Twee kapsters, één salon, jarenlange ervaring.</h2>
-        <p>
-          Na beiden jarenlang ervaring opgedaan te hebben bij verschillende
-          kapsalons hebben we ons kunnen ontwikkelen tot allround kapsters. In
-          2014 zijn we samen gestart met Chantal &amp; Loes Kappers — een
-          plek waar iedereen zich welkom voelt en waar kwaliteit vanzelfsprekend is.
-        </p>
-        <p>
-          We werken uitsluitend op afspraak. Zo krijgt iedereen rustig de tijd
-          en aandacht die hij of zij verdient.
-        </p>
+        <span class="eyebrow">{home.overOns.eyebrow}</span>
+        <h2>{home.overOns.titel}</h2>
+        <div class="over-ons-tekst">
+          <OverOnsTekst />
+        </div>
       </div>
       <ul class="people">
-        <li>
-          <div class="person-placeholder" aria-hidden="true">L</div>
-          <div>
-            <h3>Loes</h3>
-            <p class="muted">30+ jaar ervaring</p>
-          </div>
-        </li>
-        <li>
-          <div class="person-placeholder" aria-hidden="true">C</div>
-          <div>
-            <h3>Chantal</h3>
-            <p class="muted">17+ jaar ervaring</p>
-          </div>
-        </li>
+        {
+          home.overOns.personen.map((p) => (
+            <li>
+              {p.foto ? (
+                <img src={p.foto} alt={`Foto van ${p.naam}`} class="person-photo" />
+              ) : (
+                <div class="person-placeholder" aria-hidden="true">{p.naam.charAt(0)}</div>
+              )}
+              <div>
+                <h3>{p.naam}</h3>
+                <p class="muted">{p.ondertitel}</p>
+              </div>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </section>
@@ -83,8 +78,8 @@ const serviceTeasers = services.map((s) => ({
   <section class="section services-preview">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Onze diensten</span>
-        <h2>Wat we voor je kunnen betekenen</h2>
+        <span class="eyebrow">{home.dienstenPreview.eyebrow}</span>
+        <h2>{home.dienstenPreview.titel}</h2>
       </div>
       <div class="services-grid">
         {
@@ -122,12 +117,9 @@ const serviceTeasers = services.map((s) => ({
   <section class="section hours-section">
     <div class="container hours-grid">
       <div>
-        <span class="eyebrow">Openingstijden</span>
-        <h2>Wanneer ben je welkom?</h2>
-        <p>
-          We werken volledig op afspraak. Maak online een afspraak op het moment
-          dat jou het beste uitkomt.
-        </p>
+        <span class="eyebrow">{home.openingstijdenSectie.eyebrow}</span>
+        <h2>{home.openingstijdenSectie.titel}</h2>
+        <p>{home.openingstijdenSectie.tekst}</p>
         <BookButton />
       </div>
       <div class="hours-card">
@@ -174,6 +166,23 @@ const serviceTeasers = services.map((s) => ({
     gap: 0.5rem;
     color: var(--color-text-muted);
     box-shadow: var(--shadow-md);
+  }
+
+  .hero-image {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: block;
+  }
+
+  .person-photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
   }
 
   .placeholder-label {
@@ -346,7 +355,8 @@ const serviceTeasers = services.map((s) => ({
       grid-template-columns: 1fr;
     }
 
-    .hero-placeholder {
+    .hero-placeholder,
+    .hero-image {
       max-width: 480px;
       margin: 0 auto;
       width: 100%;

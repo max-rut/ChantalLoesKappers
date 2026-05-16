@@ -1,12 +1,16 @@
 ---
-import type { Product } from '../data/products';
+export type Product = {
+  naam: string;
+  beschrijving?: string;
+  afbeelding?: string;
+};
 
 interface Props {
   product: Product;
 }
 
 const { product } = Astro.props;
-const initials = product.name
+const initials = product.naam
   .split(/\s+/)
   .map((w) => w[0])
   .filter(Boolean)
@@ -17,8 +21,8 @@ const initials = product.name
 
 <article class="product">
   {
-    product.image ? (
-      <img src={product.image} alt={product.name} loading="lazy" />
+    product.afbeelding ? (
+      <img src={product.afbeelding} alt={product.naam} loading="lazy" />
     ) : (
       <div class="placeholder" aria-hidden="true">
         <span class="initials">{initials}</span>
@@ -26,8 +30,8 @@ const initials = product.name
       </div>
     )
   }
-  <h3>{product.name}</h3>
-  {product.blurb && <p>{product.blurb}</p>}
+  <h3>{product.naam}</h3>
+  {product.beschrijving && <p>{product.beschrijving}</p>}
 </article>
 
 <style>

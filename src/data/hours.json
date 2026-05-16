@@ -1,0 +1,12 @@
+{
+  "dagen": [
+    { "dag": "Maandag", "tijden": "Gesloten", "gesloten": true },
+    { "dag": "Dinsdag", "tijden": "08:30 – 17:30", "gesloten": false },
+    { "dag": "Woensdag", "tijden": "08:30 – 17:30", "gesloten": false },
+    { "dag": "Donderdag", "tijden": "08:30 – 17:30", "gesloten": false },
+    { "dag": "Vrijdag", "tijden": "08:30 – 21:00", "gesloten": false },
+    { "dag": "Zaterdag", "tijden": "08:00 – 14:00", "gesloten": false },
+    { "dag": "Zondag", "tijden": "Gesloten", "gesloten": true }
+  ],
+  "notitie": "Openingstijden kunnen rond feestdagen afwijken. Bekijk de actuele tijden in het afsprakensysteem."
+}
