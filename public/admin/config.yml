@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+locale: "nl"
+
+collections:
+  - name: "test"
+    label: "Test"
+    files:
+      - file: "src/data/test.json"
+        label: "Test pagina"
+        name: "test"
+        fields:
+          - { label: "Titel", name: "titel", widget: "string" }
+          - { label: "Beschrijving", name: "beschrijving", widget: "text" }
